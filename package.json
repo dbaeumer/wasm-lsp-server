@@ -1,0 +1,14 @@
+{
+	"name": "server",
+	"displayName": "LSP WASM Test server",
+	"version": "0.1.0",
+	"private": true,
+	"author": "Microsoft Corporation",
+	"license": "MIT",
+	"scripts": {
+		"build:exe": "cargo build",
+		"build:wasm": "cargo rustc --target wasm32-wasi-preview1-threads -- -Clink-arg=--initial-memory=10485760 -Clink-arg=--max-memory=10485760",
+		"test:wasm": "node send.js | wasmtime --wasm-features=threads --wasi-modules=experimental-wasi-threads target/wasm32-wasi-preview1-threads/debug/server.wasm",
+		"test:exe": "node send.js | target/debug/server"
+	}
+}
